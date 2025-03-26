@@ -23,7 +23,9 @@ main {
     margin: 0px;
 }
 a {
+    color: green;
     text-decoration: none;
+    transition: 1s 2s;
 }
 a:link {
     color: black;
@@ -36,6 +38,7 @@ a:hover {
     text-decoration: underline;
     background-color: gray;
     box-shadow: 0 0 20px lightseagreen;
+    transition: 0.3s;
 }
 a:active {
     color: black;

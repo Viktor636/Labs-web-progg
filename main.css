@@ -25,3 +25,19 @@ main {
 a {
     text-decoration: none;
 }
+a:link {
+    color: black;
+}
+a:visited {
+    color: lightseagreen;
+}
+a:hover {
+    color: red;
+    text-decoration: underline;
+    background-color: gray;
+    box-shadow: 0 0 20px lightseagreen;
+}
+a:active {
+    color: black;
+    opacity: 0.3;
+}

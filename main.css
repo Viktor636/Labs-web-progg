@@ -20,7 +20,7 @@ main {
     background-color: white;
     color: black;
     font-family: 'Segoe UI';
-    margin: 0px;
+    margin: 10px 20px 45px;
 }
 a {
     color: green;
@@ -53,4 +53,15 @@ div.menu {
 div.menu:hover {
     background-color: gray;
     box-shadow: 0 0 15px black;
+}
+footer {
+    background-color: black;
+    color: lightgreen;
+    padding: 10px;
+    font-size: 16pt;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }

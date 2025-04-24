@@ -1,0 +1,149 @@
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 5, Корзина товаров</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            .product {
+                margin-bottom: 15px;
+                align-items: center;
+            }
+            input {
+                padding: 8px;
+                width: 500px;
+                margin-left: 10px;
+            }
+            button {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+                margin: 10px 5px;
+                border-radius: 4px;
+                position: relative;
+                left: 150px;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #total {
+                font-weight: bold;
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #f8f8f8;
+                border-radius: 4px;
+                display: none;
+            }
+        </style>
+        <script>
+            function showAuthor() {
+                alert('Автор страницы:\nГайдабура Виктор Васильевич');
+            }
+
+            function calculateTotal() {
+                const prices = {
+                    apples: 100,
+                    pears: 80,
+                    oranges: 150,
+                    melons: 300,
+                    bananas: 50
+                };
+
+                let total = 0;
+                
+                // Получаем значения из полей ввода
+                const applesQty = parseInt(document.getElementById('apples').value) || 0;
+                const pearsQty = parseInt(document.getElementById('pears').value) || 0;
+                const orangesQty = parseInt(document.getElementById('oranges').value) || 0;
+                const melonsQty = parseInt(document.getElementById('melons').value) || 0;
+                const bananasQty = parseInt(document.getElementById('bananas').value) || 0;
+
+                // Рассчитываем общую сумму
+                total = applesQty * prices.apples + 
+                       pearsQty * prices.pears + 
+                       orangesQty * prices.oranges + 
+                       melonsQty * prices.melons + 
+                       bananasQty * prices.bananas;
+
+                // Отображаем результат
+                const totalElement = document.getElementById('total');
+                totalElement.textContent = `Общая цена: ${total} р`;
+                totalElement.style.display = 'block';
+            }
+
+            function clearCart() {
+                // Очищаем поля ввода
+                document.getElementById('apples').value = '';
+                document.getElementById('pears').value = '';
+                document.getElementById('oranges').value = '';
+                document.getElementById('melons').value = '';
+                document.getElementById('bananas').value = '';
+
+                // Скрываем общую сумму
+                document.getElementById('total').style.display = 'none';
+            }
+        </script>
+    </head>
+    
+    <body>
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 5
+        </header>
+
+        <main>
+            <h1>Корзина товаров</h1>
+            
+            <div class="product">
+                Яблоки (100р/шт):<br>
+                <input type="number" id="apples" min="0" placeholder="сколько яблок надо?">
+            </div>
+            
+            <div class="product">
+                Груши (80р/шт):<br>
+                <input type="number" id="pears" min="0" placeholder="введите количество груш">
+            </div>
+            
+            <div class="product">
+                Апельсины (150р/шт):<br>
+                <input type="number" id="oranges" min="0" placeholder="сколько апельсинов?">
+            </div>
+            
+            <div class="product">
+                Дыни (300р/шт):<br>
+                <input type="number" id="melons" min="0" placeholder="количество дынь">
+            </div>
+            
+            <div class="product">
+                Бананы (50р/шт):<br>
+                <input type="number" id="bananas" min="0" placeholder="сколько бананов?">
+            </div>
+            
+            <div>
+                <button onclick="calculateTotal()">Рассчитать</button>
+                <button onclick="clearCart()">Очистить</button>
+            </div>
+            
+            <div id="total"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+    </body>
+</html>

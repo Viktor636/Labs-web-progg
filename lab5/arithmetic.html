@@ -118,6 +118,17 @@
                 let Footer = 'КОНЕЦ!\nПарапарапам!';
                 alert(Footer);
             }
+
+            function changeOutput(buttonNum, backColor, textColor,  borderType, borderWidth, borderRadius) {
+                let output = document.getElementById('output');
+                output.innerHTML = 'Нажата кнопка 1' + buttonNum;
+                output.style.backgroundColor = backColor;
+                output.style.color = textColor;
+                output.style.borderStyle = borderType;
+                output.style.borderWidth = borderWidth + 'px';
+                output.style.borderRadius = borderRadius + 'px';
+                output.style.height = '40px';
+            }
         </script>
         <style>
             .message {
@@ -139,6 +150,11 @@
             .cursor {
                 cursor: pointer;
             }
+            #output {
+                border: 1px solid;
+                width: 300px;
+                height: 40px;
+            }
         </style>
     </head>
     
@@ -155,7 +171,17 @@
             <div class="message" onclick="showX()">Найти произведение чисел</div>
             <div class="message" onclick="showDiv()">Найти отношение чисел</div>
             <div class="message" onclick="showPow()">Возвести в степень</div>
+
             <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
+
+            <div>
+                <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow', 'dashed', 3, 10)">
+                <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'black', 'lime', 'double', 5, 20)">
+                <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'black', 'white', 'groove', 8, 30)">
+                <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'green', 'orange', 'ridge', 4, 15)">
+            </div>
+
+            <div id="output"></div>
         </main>
 
         <footer class="cursor" ondblclick="showFooter()">

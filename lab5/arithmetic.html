@@ -1,0 +1,53 @@
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 5</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <script>
+            function showSum() {
+                let a = 5154;
+                let b = 7891;
+                let result = a + b;
+                alert('Сумма ' + a + ' и ' + b + ' равна '  + result);
+            }
+        </script>
+        <style>
+            .message {
+                position: relative;
+                cursor: pointer;
+                display: inline-block;
+                background-color: rgb(208, 208, 208);
+                color: red;
+                border: solid 2px green;
+                border-radius: 5px;
+                width: 400px;
+                height: 50px;
+                left: 450px;
+                text-align: center;
+                line-height: 50px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 5 Вывод суммы
+        </header>
+
+        <main>
+            <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
+            <div class="message">Узнать, кто автор страницы</div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>

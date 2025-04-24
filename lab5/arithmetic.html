@@ -8,44 +8,115 @@
         <link rel="icon" href="../favicon-16x16.png">
         <link rel="icon" href="../favicon-32x32.png">
         <script>
-            function showSum() {
-                let inputA = document.getElementById('numberA')
-                let inputB = document.getElementById('numberB')
+            function X() {
+                document.getElementById('numberA').style.color = '';
+                document.getElementById('numberA').style.borderColor = '';
+                document.getElementById('numberB').style.color = '';
+                document.getElementById('numberB').style.borderColor = '';
+            }
 
+            function Y() {
+                let inputA = document.getElementById('numberA');
+                let inputB = document.getElementById('numberB');
                 let a = parseInt(inputA.value);
                 let b = parseInt(inputB.value);
+                let isValid = true;
+
+                X();
+
+                if(isNaN(a)) {
+                    alert('Введите числовое значение в первое поле');
+                    inputA.focus();
+                    inputA.select();
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                    isValid = false;
+                    return
+                }
+
+                if(isNaN(b)) {
+                    alert('Введите числовое значение во второе поле');
+                    inputB.focus();
+                    inputB.select();
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function showSum() {
+                if(!Y()) return;
+                let a = parseInt(document.getElementById('numberA').value);
+                let b = parseInt(document.getElementById('numberB').value);
                 let result = a + b;
-                alert('Сумма ' + a + ' и ' + b + ' равна '  + result);
+                alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
             }
 
             function showDifference() {
-                let inputA = document.getElementById('numberA')
-                let inputB = document.getElementById('numberB')
-
-                let a = parseInt(inputA.value);
-                let b = parseInt(inputB.value);
+                if(!Y()) return;
+                let a = parseInt(document.getElementById('numberA').value);
+                let b = parseInt(document.getElementById('numberB').value);
                 let result = a - b;
-                alert('Разность ' + a + ' и ' + b + ' равна '  + result);
+                alert('Разность ' + a + ' и ' + b + ' равна ' + result);
             }
 
             function showX() {
-                let inputA = document.getElementById('numberA')
-                let inputB = document.getElementById('numberB')
-
-                let a = parseInt(inputA.value);
-                let b = parseInt(inputB.value);
+                if(!Y()) return;
+                let a = parseInt(document.getElementById('numberA').value);
+                let b = parseInt(document.getElementById('numberB').value);
                 let result = a * b;
-                alert('Произведение ' + a + ' и ' + b + ' равно '  + result);
+                alert('Произведение ' + a + ' и ' + b + ' равно ' + result);
+            }
+
+            function showDiv() {
+                if(!Y()) return;
+                let a = parseInt(document.getElementById('numberA').value);
+                let b = parseInt(document.getElementById('numberB').value);
+                
+                if(b == 0) {
+                    alert('На ноль делить нельзя!');
+                    let inputB = document.getElementById('numberB');
+                    inputB.focus();
+                    inputB.select();
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                }
+                
+                let result = a / b;
+                alert('Деление ' + a + ' на ' + b + ' равно ' + result);
+            }
+
+            function showPow() {
+                if(!Y()) return;
+                let a = parseInt(document.getElementById('numberA').value);
+                let b = parseInt(document.getElementById('numberB').value);
+                
+                if(a === 0 && b === 0) {
+                    alert('Ошибка: 0 в степени 0 не определено!');
+                    let inputA = document.getElementById('numberA');
+                    let inputB = document.getElementById('numberB');
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                    return;
+                }
+                
+                let result = a**b;
+                alert(a + ' в степени ' + b + ' равно ' + result);
             }
 
             function showAuthor() {
                 let author = 'Автор страницы:\nГайдабура Виктор Васильевич';
-                alert(author)
+                alert(author);
             }
 
             function showFooter() {
                 let Footer = 'КОНЕЦ!\nПарапарапам!';
-                alert(Footer)
+                alert(Footer);
             }
         </script>
         <style>
@@ -72,7 +143,6 @@
     </head>
     
     <body>
-        
         <header class="cursor" onclick="showAuthor()">
             НГТУ, ФБ, Лабораторная работа 5 Вывод суммы
         </header>
@@ -83,6 +153,8 @@
             <div class="message" onclick="showSum()">Найти сумму чисел</div>
             <div class="message" onclick="showDifference()">Найти разность чисел</div>
             <div class="message" onclick="showX()">Найти произведение чисел</div>
+            <div class="message" onclick="showDiv()">Найти отношение чисел</div>
+            <div class="message" onclick="showPow()">Возвести в степень</div>
             <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
         </main>
 
@@ -90,5 +162,5 @@
             <hr>
             &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
         </footer>
-
     </body>
+</html>

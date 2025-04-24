@@ -14,6 +14,16 @@
                 let result = a + b;
                 alert('Сумма ' + a + ' и ' + b + ' равна '  + result);
             }
+
+            function showAuthor() {
+                let author = 'Автор страницы:\nГайдабура Виктор Васильевич';
+                alert(author)
+            }
+
+            function showFooter() {
+                let Footer = 'КОНЕЦ!\nПарапарапам!';
+                alert(Footer)
+            }
         </script>
         <style>
             .message {
@@ -31,21 +41,24 @@
                 line-height: 50px;
                 font-weight: bold;
             }
+            .cursor {
+                cursor: pointer;
+            }
         </style>
     </head>
     
     <body>
         
-        <header onclick="showAuthor()">
+        <header class="cursor" onclick="showAuthor()">
             НГТУ, ФБ, Лабораторная работа 5 Вывод суммы
         </header>
 
         <main>
             <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
-            <div class="message">Узнать, кто автор страницы</div>
+            <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
         </main>
 
-        <footer>
+        <footer class="cursor" ondblclick="showFooter()">
             <hr>
             &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
         </footer>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайдабура Виктор Васильевич Лабораторная 5 Круги</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-area {
+            position: relative;
+            height: 500px;
+            margin: 30px auto;
+            border: 2px dashed #ccc;
+            max-width: 800px;
+        }
+        
+        .ball {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        
+        .reset-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            background-color: #4a7dff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .reset-btn:hover {
+            background-color: #3a6de8;
+        }
+    </style>
+</head>
+<body>
+    <header onclick="showAuthor()">
+        НГТУ, ФБ, Лабораторная работа 5. Круги
+    </header>
+
+    <main>
+        <div class="game-area" id="gameArea"></div>
+        <button class="reset-btn" id="resetBtn">Показать все шары</button>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+    </footer>
+
+    <script>
+        function showAuthor() {
+            alert('Автор страницы:\nГайдабура Виктор Васильевич');
+        }
+
+        // Цвета шаров
+        const ballColors = [
+            '#FF5252', '#4CAF50', '#2196F3', '#FFEB3B', 
+            '#9C27B0', '#00BCD4', '#FF9800', '#795548',
+            '#607D8B', '#E91E63'
+        ];
+
+        // Позиции шаров
+        const ballPositions = [
+            {top: '10%', left: '20%'},
+            {top: '15%', left: '70%'},
+            {top: '30%', left: '40%'},
+            {top: '45%', left: '10%'},
+            {top: '50%', left: '80%'},
+            {top: '65%', left: '30%'},
+            {top: '70%', left: '60%'},
+            {top: '25%', left: '85%'},
+            {top: '80%', left: '15%'},
+            {top: '40%', left: '50%'}
+        ];
+
+        // Создаем шары
+        function createBalls() {
+            const gameArea = document.getElementById('gameArea');
+            
+            ballColors.forEach((color, index) => {
+                const ball = document.createElement('div');
+                ball.className = 'ball';
+                ball.textContent = index + 1;
+                ball.style.backgroundColor = color;
+                ball.style.top = ballPositions[index].top;
+                ball.style.left = ballPositions[index].left;
+                
+                ball.addEventListener('click', function() {
+                    this.style.transform = 'scale(0)';
+                    this.style.opacity = '0';
+                });
+                
+                gameArea.appendChild(ball);
+            });
+        }
+
+        // Сброс шаров
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            const balls = document.querySelectorAll('.ball');
+            balls.forEach(ball => {
+                ball.style.transform = 'scale(1)';
+                ball.style.opacity = '1';
+            });
+        });
+
+        // Инициализация при загрузке
+        window.addEventListener('load', createBalls);
+    </script>
+</body>
+</html>

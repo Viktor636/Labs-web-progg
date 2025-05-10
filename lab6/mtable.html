@@ -8,18 +8,26 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="../favicon-16x16.png">
         <link rel="icon" href="../favicon-32x32.png">
+        <script>
+            function showMultipleTable() {
+                let tbl = document.getElementById('mtable');
+                tbl.innerHTML = '<h1>Таблица умножения<h1>';
+                for(i = 1; i <= 10; i++) {
+                    let s = `<div>${i} * 7 = ${i*7}</div>`;
+                    tbl.innerHTML += s;
+                }
+            }
+        </script>
     </head>
     
-    <body>
+    <body onload="showMultipleTable()">
         
         <header onclick="showAuthor()">
             НГТУ, ФБ, Лабораторная работа 6
         </header>
 
         <main>
-            <ul>
-                <li><a href="mtable.html">Таблица умножения</a></li>
-            </ul>
+            <div id="mtable"></div>
         </main>
 
         <footer>

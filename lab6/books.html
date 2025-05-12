@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 6</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <style>
+            .book {
+                margin-bottom: 15px;
+                padding: 10px;
+                border-left: 3px solid transparent;
+            }
+            
+            .book b {
+                color: #333;
+            }
+            
+            .book i {
+                color: #0066cc;
+                font-style: italic;
+            }
+            
+            .book-info {
+                color: #666;
+                font-size: 0.9em;
+                margin-top: 5px;
+            }
+            
+            .bestseller {
+                background-color: #fff3f3;
+                border-left-color: red;
+            }
+            
+            .bestseller-badge {
+                background: red;
+                color: white;
+                padding: 2px 5px;
+                margin-left: 5px;
+                font-size: 0.8em;
+                border-radius: 3px;
+            }
+            
+            .out-of-stock {
+                opacity: 0.6;
+            }
+            
+            .stock-status {
+                color: #666;
+                font-size: 0.8em;
+                margin-left: 5px;
+            }
+        </style>
+        <script src="books.js"></script>
+        <script>
+            function showBooks() {
+                const bookList = document.getElementById('bookList');
+                for(let i = 0; i < books.length; i++) {
+                    let bookClass = "book";
+                    if (books[i].bestseller) bookClass += " bestseller";
+                    if (!books[i].inStock) bookClass += " out-of-stock";
+                    
+                    bookList.innerHTML += `
+                        <div>
+                            <b>${ books[i].author }.</b>
+                            <i>${ books[i].name }</i>
+                            &mdash; ${ books[i].publicationYear }
+                            ${books[i].bestseller ? '<span class="bestseller-badge">Бестселлер</span>' : ''}
+                            ${!books[i].inStock ? '<span class="stock-status">(нет в наличии)</span>' : ''}
+                            <div class="book-info">Год: ${books[i].publicationYear}, Цена: ${books[i].price} ₽</div>
+                        </div>
+                    `;
+                }
+            }
+        </script>
+    </head>
+    
+    <body onload="showBooks()">
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 6 Книга
+        </header>
+
+        <main>
+           <h1>Список книг</h1>
+           <div id="bookList"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 6</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <style>
+            .diag {
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: flex-end;
+                height: 300px;
+                gap: 10px;
+            }
+            .bar {
+                width: 300px;
+                background: #dc3545;
+                border-radius: 5px;
+                overflow: hidden;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+            }
+        </style>
+        <script>
+            function showDiagram() {
+                let data = [36, 86, 55, 28, 92, 60, 41, 17, 9, 43];
+                let colors = ['red', 'green', 'yellow', 'black', 'grey', 'purple', 'pink', 'brown', 'blue', 'orange'];
+                let bars = document.getElementsByClassName('bar');
+                const diagHeight = document.getElementById('diag').clientHeight;
+                const maxData = Math.max(...data);
+                const k = diagHeight / maxData * 0.9;
+                
+                for(let i = 0; i < data.length; i++) {
+                    bars[i].style.height = k*data[i] + 'px';
+                    bars[i].style.backgroundColor = colors[i];
+                    bars[i].textContent = data[i];
+                }
+            }
+        </script>
+    </head>
+    
+    <body onload="showDiagram()">
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 6 Диаграмма
+        </header>
+
+        <main>
+            <div class="diag" id="diag">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>
+</html>

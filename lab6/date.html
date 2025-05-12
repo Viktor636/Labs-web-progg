@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 6</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <style>
+            .date-container {
+                margin: 20px;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            .locale-name {
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 5px;
+            }
+            .date-output {
+                font-family: monospace;
+            }
+        </style>
+        <script>
+            function showDate() {
+                const today = new Date();
+                const locales = [
+                    {code: 'ru-RU', name: 'Русский (Россия)'},
+                    {code: 'en-US', name: 'Английский (США)'},
+                    {code: 'de-DE', name: 'Немецкий (Германия)'},
+                    {code: 'ja-JP', name: 'Японский (Япония)'},
+                    {code: 'ar-EG', name: 'Арабский (Египет)'},
+                    {code: 'fr-FR', name: 'Французский (Франция)'}
+                ];
+                
+                let output = '';
+                
+                locales.forEach(locale => {
+                    output += `
+                        <div class="date-container">
+                            <div class="locale-name">${locale.name} (${locale.code}):</div>
+                            <div class="date-output">${today.toLocaleString(locale.code)}</div>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('current-date').innerHTML = output;
+            }
+        </script>
+    </head>
+    
+    <body onload="showDate()">
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 6 Дата и время
+        </header>
+
+        <main>
+            <div id="current-date"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>

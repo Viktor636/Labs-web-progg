@@ -24,9 +24,52 @@
             .date-output {
                 font-family: monospace;
             }
+            header {
+                transition: color 0.5s ease; /* Плавное изменение цвета */
+            }
+            .buttons-container {
+                display: flex;
+                gap: 10px;
+                margin: 20px 0;
+            }
+            button {
+                padding: 8px 15px;
+                cursor: pointer;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                background-color: #f0f0f0;
+            }
+            button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         </style>
         <script>
-            function showDate() {
+            let colorTimer;
+            let timeUpdateTimer;
+            const colorChangeInterval = 1500; // 1.5 секунды для смены цвета
+            const timeUpdateInterval = 2000; // 2 секунды для обновления времени
+
+            function changeColors() {
+                const header = document.getElementsByTagName('header')[0];
+                const rgb = `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+                header.style.color = rgb;
+            }
+
+            function startChangeColors() {
+                changeColors();
+                colorTimer = setInterval(changeColors, colorChangeInterval);
+                document.getElementById('start-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+            }
+
+            function stopChangeColors() {
+                clearInterval(colorTimer);
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+            }
+
+            function updateDateTime() {
                 const today = new Date();
                 const locales = [
                     {code: 'ru-RU', name: 'Русский (Россия)'},
@@ -50,10 +93,30 @@
                 
                 document.getElementById('current-date').innerHTML = output;
             }
+
+            function startTimeUpdate() {
+                updateDateTime();
+                timeUpdateTimer = setInterval(updateDateTime, timeUpdateInterval);
+                document.getElementById('time-start-btn').disabled = true;
+                document.getElementById('time-stop-btn').disabled = false;
+            }
+
+            function stopTimeUpdate() {
+                clearInterval(timeUpdateTimer);
+                document.getElementById('time-start-btn').disabled = false;
+                document.getElementById('time-stop-btn').disabled = true;
+            }
+
+            // Инициализация при загрузке
+            function init() {
+                updateDateTime();
+                document.getElementById('stop-btn').disabled = true;
+                document.getElementById('time-stop-btn').disabled = true;
+            }
         </script>
     </head>
     
-    <body onload="showDate()">
+    <body onload="init()">
         
         <header onclick="showAuthor()">
             НГТУ, ФБ, Лабораторная работа 6 Дата и время
@@ -61,6 +124,16 @@
 
         <main>
             <div id="current-date"></div>
+            
+            <div class="buttons-container">
+                <button onclick="startChangeColors()" id="start-btn">Старт (цвет)</button>
+                <button onclick="stopChangeColors()" id="stop-btn">Стоп (цвет)</button>
+            </div>
+            
+            <div class="buttons-container">
+                <button onclick="startTimeUpdate()" id="time-start-btn">Обновлять время</button>
+                <button onclick="stopTimeUpdate()" id="time-stop-btn">Остановить обновление</button>
+            </div>
         </main>
 
         <footer>
@@ -69,3 +142,4 @@
         </footer>
 
     </body>
+</html>

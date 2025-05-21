@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 7</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <script src="mmk-data.js"></script>
+        <script>
+            function showMMK() {
+                let table = document.getElementById('mmk-table');
+                
+                // Создаем заголовок таблицы
+                let thead = document.createElement('thead');
+                let headerRow = document.createElement('tr');
+                
+                let thDate = document.createElement('th');
+                thDate.innerText = 'Дата';
+                headerRow.appendChild(thDate);
+                
+                let thPrice = document.createElement('th');
+                thPrice.innerText = 'Цена, ₽';
+                headerRow.appendChild(thPrice);
+                
+                let thDiff = document.createElement('th');
+                thDiff.innerText = 'Изменение';
+                headerRow.appendChild(thDiff);
+                
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+                
+                // Создаем тело таблицы
+                let tbody = document.createElement('tbody');
+                
+                for(let i = 0; i < mmkPrices.length; i++) {
+                    let tr = document.createElement('tr');
+                    
+                    // Дата
+                    let tdDate = document.createElement('td');
+                    tdDate.innerText = mmkDates[i];
+                    tr.appendChild(tdDate);
+                    
+                    // Цена
+                    let tdPrice = document.createElement('td');
+                    tdPrice.innerText = mmkPrices[i].toFixed(2);
+                    tr.appendChild(tdPrice);
+                    
+                    // Разница
+                    let tdDiff = document.createElement('td');
+                    if(i > 0) {
+                        let diff = mmkPrices[i] - mmkPrices[i-1];
+                        tdDiff.innerText = diff.toFixed(2);
+                        
+                        if(diff > 0) {
+                            tdDiff.style.color = 'green';
+                        } 
+                        else if(diff < 0) {
+                            tdDiff.style.color = 'red';
+                        }
+                    } 
+                    
+                    else {
+                        tdDiff.innerText = '-';
+                    }
+                    tr.appendChild(tdDiff);
+                    
+                    tbody.appendChild(tr);
+                }
+                
+                table.appendChild(tbody);
+
+                // Вычисляем статистику
+                let sum = 0;
+                for(let i = 0; i < mmkPrices.length; i++) {
+                    sum += mmkPrices[i];
+                }
+                let average = sum / mmkPrices.length;
+                
+                let max = mmkPrices[0];
+                let min = mmkPrices[0];
+                for(let i = 1; i < mmkPrices.length; i++) {
+                    if(mmkPrices[i] > max) max = mmkPrices[i];
+                    if(mmkPrices[i] < min) min = mmkPrices[i];
+                }
+
+                // Выводим статистику
+                let detail = document.getElementById('detail');
+                detail.innerHTML = `
+                    <p>Средняя цена: <strong>${average.toFixed(2)} ₽</strong></p>
+                    <p>Максимальная цена: <strong>${max.toFixed(2)} ₽</strong></p>
+                    <p>Минимальная цена: <strong>${min.toFixed(2)} ₽</strong></p>
+                `;
+
+                // Скрываем кнопку
+                document.querySelector('button').style.display = 'none';
+            }
+        </script>
+    </head>
+    
+    <body>
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 7
+        </header>
+
+        <main>
+            <button onclick="showMMK()">Курс акций ММК</button>
+            <table border="1" id="mmk-table"></table>
+            <div id="detail"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>
+</html>

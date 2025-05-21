@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайдабура Виктор Васильевич Лабораторная 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        #result {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 15px;
+            max-width: 400px;
+            background: #f9f9f9;
+        }
+        .up { color: green; }
+        .down { color: red; }
+        .source { font-size: 12px; margin-top: 10px; }
+    </style>
+    <script>
+        function getEuroExchangeRate() {
+            // 1. Получение данных с API через fetch с обработкой через then
+            fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+                .then(function(response) {
+                    return response.json(); // 2. Преобразование ответа в JSON
+                })
+                .then(function(data) {
+                    const eur = data.Valute.EUR;
+                    
+                    // 3. Расчет разницы курса
+                    const diff = eur.Value - eur.Previous;
+                    // 4. Определение направления изменения
+                    const status = diff > 0 ? 'Поднялся' : diff < 0 ? 'Опустился' : 'Без изменений';
+                    const colorClass = diff > 0 ? 'up' : diff < 0 ? 'down' : '';
+                    
+                    // 6. Формирование HTML для вывода
+                    document.getElementById('result').innerHTML = `
+                        <p><b>Курс евро:</b> ${eur.Value.toFixed(2)} руб.</p>
+                        <p><b>Дата:</b> ${new Date(data.Date).toLocaleDateString()}</p>
+                        <p><b>Предыдущий курс:</b> ${eur.Previous.toFixed(2)} руб.</p>
+                        <p class="${colorClass}"><b>Изменение:</b> ${Math.abs(diff).toFixed(2)} руб. (${status})</p>
+                        <p class="source">Данные: <a href="https://www.cbr-xml-daily.ru/" target="_blank">ЦБ РФ</a></p>
+                    `;
+                    
+                    // 7. Блокировка кнопки после нажатия
+                    document.querySelector('button').disabled = true;
+                })
+                .catch(function(error) {
+                    console.error('Ошибка:', error);
+                    document.getElementById('result').innerHTML = '<p>Ошибка при загрузке данных</p>';
+                });
+        }
+    </script>
+</head>
+<body>
+    <header onclick="showAuthor()">
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+
+    <main>
+        <button onclick="getEuroExchangeRate()">Получить курс евро</button>
+        <div id="result"></div>
+    </main>
+
+    <footer>
+        <hr>
+        &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+    </footer>
+</body>
+</html>

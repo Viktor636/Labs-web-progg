@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Гайдабура Виктор Васильевич Лабораторная 7</title>
+        <link rel="stylesheet" href="../main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../favicon-16x16.png">
+        <link rel="icon" href="../favicon-32x32.png">
+        <style>
+            #weather-result {
+                border: 1px solid #ccc;
+                padding: 15px;
+                margin-top: 15px;
+                max-width: 400px;
+                background: #f9f9f9;
+            }
+            .weather-time {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        </style>
+        <script>
+            function getWeather() {
+                const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+                
+                fetch(url)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        // Получаем время и температуру
+                        const times = data.hourly.time;
+                        const temps = data.hourly.temperature_2m;
+                        
+                        // Находим индексы для 8:00, 12:00 и 20:00
+                        const morningIndex = times.findIndex(function(t) { 
+                            return t.includes('T08:00'); 
+                        });
+                        const dayIndex = times.findIndex(function(t) { 
+                            return t.includes('T12:00'); 
+                        });
+                        const eveningIndex = times.findIndex(function(t) { 
+                            return t.includes('T20:00'); 
+                        });
+                        
+                        // Формируем результат
+                        let resultHTML = `
+                            <h3>Прогноз температуры в Новосибирске</h3>
+                            <div class="weather-time">Утро (8:00): ${temps[morningIndex]}°C</div>
+                            <div class="weather-time">День (12:00): ${temps[dayIndex]}°C</div>
+                            <div class="weather-time">Вечер (20:00): ${temps[eveningIndex]}°C</div>
+                            <p><small>Данные предоставлены <a href="https://open-meteo.com/" target="_blank">Open-Meteo.com</a></small></p>
+                        `;
+                        
+                        document.getElementById('weather-result').innerHTML = resultHTML;
+                        document.querySelector('button').disabled = true;
+                    })
+                    .catch(function(error) {
+                        document.getElementById('weather-result').innerHTML = 
+                            '<p style="color: red;">Ошибка при получении данных о погоде</p>';
+                    });
+            }
+        </script>
+    </head>
+    
+    <body>
+        
+        <header onclick="showAuthor()">
+            НГТУ, ФБ, Лабораторная работа 7
+        </header>
+
+        <main>
+          <button onclick="getWeather()">Получить прогноз погоды</button>
+            <div id="weather-result"></div>
+        </main>
+
+        <footer>
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
+    </body>

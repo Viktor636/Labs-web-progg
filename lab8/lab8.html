@@ -23,8 +23,12 @@
             <div id="app">
                 <h1 :title="messageRus">{{ message }}</h1>
                 <p>Счётчик: {{ counter }}</p>
-                <button @click="incCounter" v-if="counter < 10">++</button>
-                <button @click="decCounter" v-if="counter > 0">--</button>
+                <button @click="incCounter" v-if="counter < 10" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Увеличить
+                </button>
+                <button @click="decCounter" v-if="counter > 0" class="btn btn-danger">
+                    <i class="bi bi-dash-circle"></i> Уменьшить
+                </button>
                 <hr>
 
                 <h2>Пользователь:</h2>
@@ -38,7 +42,10 @@
                         <h2 class="card-title">Цветы</h2>
                         <ul class="list-group">
                             <li v-for="(flower, id) in flowers" class="list-group-item">
-                                {{ flower }} <button @click="edit(id, flower)">?</button>
+                                {{ flower }} 
+                                <button @click="edit(id, flower)" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pen"></i>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -55,12 +62,12 @@
                     </thead>
                     <tr v-for="(flower, id) in flowers">
                         <td>
-                            <span v-if="flower === null">загрузается...</span>
+                            <span v-if="flower === null">загружается...</span>
                             <span v-else>{{ flower }}</span>
                         </td>
                         <td>
                             <button @click="edit(id, flower)" class="btn btn-primary" v-if="flower !== null">
-                                <i class="bi bi-pen"></i>
+                                <i class="bi bi-pen"></i> Редактировать
                             </button>
                             <div class="spinner-border" role="status" v-if="flower === null"></div>
                         </td>
@@ -79,7 +86,9 @@
                         <input type="number" v-model="b" class="form-control">
                     </div>
                     <div class="col-auto">
-                        <button @click="sum" class="btn btn-primary">=</button>
+                        <button @click="sum" class="btn btn-primary">
+                            <i class="bi bi-calculator"></i> =
+                        </button>
                     </div>
                     <div class="col-auto">
                         <span class="badge text-bg-primary fs-5">{{ result }}</span>
@@ -89,7 +98,10 @@
         </main>
 
         <footer>
-        
+            <hr>
+            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
+        </footer>
+
         <script>
             Vue.createApp({
                 data() {
@@ -128,10 +140,5 @@
                 }
             }).mount('#app');
         </script>
-            <hr>
-            &copy; Виктор Гайдабура, ФБИ-31, 2 курс, 2025
-        </footer>
-
     </body>
-
 </html>

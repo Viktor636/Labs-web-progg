@@ -40,12 +40,26 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h2 class="card-title">Цветы</h2>
+                        <div class="input-group mb-3">
+                            <input type="text" v-model="newFlower" class="form-control" placeholder="Новый цветок">
+                            <button @click="addFlower" class="btn btn-success">
+                                <i class="bi bi-plus-lg"></i> Добавить
+                            </button>
+                        </div>
                         <ul class="list-group">
-                            <li v-for="(flower, id) in flowers" class="list-group-item">
-                                {{ flower }} 
-                                <button @click="edit(id, flower)" class="btn btn-sm btn-primary">
-                                    <i class="bi bi-pen"></i>
-                                </button>
+                            <li v-for="(flower, id) in flowers" class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    <span v-if="flower === null">загружается...</span>
+                                    <span v-else>{{ flower }}</span>
+                                </span>
+                                <div>
+                                    <button @click="edit(id, flower)" class="btn btn-sm btn-primary me-1">
+                                        <i class="bi bi-pen"></i>
+                                    </button>
+                                    <button @click="removeFlower(id)" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -57,25 +71,30 @@
                     <thead>
                         <tr>
                             <th>Название</th>
-                            <th>Редактировать</th>
+                            <th>Действия</th>
                         </tr>
                     </thead>
-                    <tr v-for="(flower, id) in flowers">
-                        <td>
-                            <span v-if="flower === null">загружается...</span>
-                            <span v-else>{{ flower }}</span>
-                        </td>
-                        <td>
-                            <button @click="edit(id, flower)" class="btn btn-primary" v-if="flower !== null">
-                                <i class="bi bi-pen"></i> Редактировать
-                            </button>
-                            <div class="spinner-border" role="status" v-if="flower === null"></div>
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr v-for="(flower, id) in flowers">
+                            <td>
+                                <span v-if="flower === null">загружается...</span>
+                                <span v-else>{{ flower }}</span>
+                            </td>
+                            <td>
+                                <button @click="edit(id, flower)" class="btn btn-sm btn-primary me-1" v-if="flower !== null">
+                                    <i class="bi bi-pen"></i> Редактировать
+                                </button>
+                                <button @click="removeFlower(id)" class="btn btn-sm btn-danger me-1" v-if="flower !== null">
+                                    <i class="bi bi-trash"></i> Удалить
+                                </button>
+                                <div class="spinner-border spinner-border-sm" role="status" v-if="flower === null"></div>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <h2>Калькулятор</h2>
-                <div class="row g-5">
+                <div class="row g-5 align-items-center">
                     <div class="col-auto">
                         <input type="number" v-model="a" class="form-control">
                     </div>
@@ -118,6 +137,7 @@
                         a: 1,
                         b: 10,
                         result: '',
+                        newFlower: ''
                     }
                 },
                 methods: {
@@ -129,14 +149,27 @@
                     },
                     edit(id, flower) {
                         let newName = prompt('Введите имя цветка:', flower);
-                        this.flowers[id] = null;
-                        setTimeout(() => {
-                            this.flowers[id] = newName;
-                        }, 3000);
+                        if (newName !== null && newName.trim() !== '') {
+                            this.flowers[id] = null;
+                            setTimeout(() => {
+                                this.flowers[id] = newName;
+                            }, 1000);
+                        }
                     },
                     sum() {
                         this.result = this.a + this.b;
                     },
+                    addFlower() {
+                        if (this.newFlower.trim() !== '') {
+                            this.flowers.push(this.newFlower);
+                            this.newFlower = '';
+                        }
+                    },
+                    removeFlower(id) {
+                        if (confirm('Удалить этот цветок?')) {
+                            this.flowers.splice(id, 1);
+                        }
+                    }
                 }
             }).mount('#app');
         </script>
